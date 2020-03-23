@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.hesicare.health.mappering.TripartiteDeviceMapper">
-	<select id="sela" resultType="java.util.Map">
-		select * from pms_brand
-	</select>
-	<select id="selaa" resultType="java.util.Map">
-		select * from a
-	</select>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaj.common.base.mapper.MainMapper">
+    
+    <select id="selone" parameterType="com.hesicare.health.entity.SysDept" resultType="map">
+       select * from sys_dept
+    </select>
+    
+    <select id="seltwo" parameterType="com.hesicare.health.entity.SysDept" resultType="map">
+        select * from sys_dept
+    </select>
 </mapper>

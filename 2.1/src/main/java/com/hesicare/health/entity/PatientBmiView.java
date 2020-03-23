@@ -1,29 +1,21 @@
 package com.hesicare.health.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 
-import lombok.Data;
+import java.util.Date;
 
-import javax.persistence.*;
 
-@Data
-@Table(name = "patient_bmi_view")
+@TableName("patient_bmi_view")
 public class PatientBmiView {
- /* @Id
-  @Column(name = "id")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)*/
+
   private long id;
- // @Column(name = "idcard")
   private String idcard;
- // @Column(name = "hight")
   private String hight;
-//  @Column(name = "weight")
   private String weight;
-  //@Column(name = "mearsure_time")
-  private java.sql.Timestamp mearsureTime;
- // @Column(name = "status")
+  private String mearsureTime;
   private String status;
- // @Column(name = "deptid")
   private long deptid;
+
 
   public long getId() {
     return id;
@@ -61,11 +53,11 @@ public class PatientBmiView {
   }
 
 
-  public java.sql.Timestamp getMearsureTime() {
+  public String getMearsureTime() {
     return mearsureTime;
   }
 
-  public void setMearsureTime(java.sql.Timestamp mearsureTime) {
+  public void setMearsureTime(String mearsureTime) {
     this.mearsureTime = mearsureTime;
   }
 

@@ -1,188 +1,189 @@
 package com.hesicare.health.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.baomidou.mybatisplus.annotation.TableName;
 
-import org.hibernate.annotations.GenericGenerator;
+@TableName("patient_blood_pressure_view")
+public class BloodPressure {
 
-@Entity
-@Table(name = "patient_blood_pressure_view")
-public class BloodPressure implements java.io.Serializable {
+  private long id;
+  private long userid;
+  private String name;
+  private String birth;
+  private String sex;
+  private String measureTime;
+  private String identifyCard;
+  private String cardNumber;
+  private Double systolic;
+  private Double diastolic;
+  private Double pluse;
+  private Double isAverage;
+  private String evaluation;
+  private String hand;
+  private String devicesn;
+  private String parentId;
+  private String status;
+  private long deptid;
 
-	// Fields
-	private static final long serialVersionUID = 1L;
-	private Long id;
-	private String checkTime;
-	private String userid;
-	private String idCard;
-	private String NAME;
-	private String birth;
-	private String sex;
-	private String systolicPressure;
-	private String diastolicPressure;
-	private String pluse;
-	private Integer datasource;
-	private String isAverage;
-	private String identifierCode;
-	private String hand;
-	private String data_status;
-	private String cardNumber;
-	private String  deviceId;
-	private String deptid;
 
-	@GenericGenerator(name = "generator", strategy = "identity")
-	@Id
-	@GeneratedValue(generator = "generator")
-	@Column(name = "id", unique = true, nullable = false)
-	public Long getId() {
-		return this.id;
-	}
+  public long getId() {
+    return id;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public void setId(long id) {
+    this.id = id;
+  }
 
-	@Column(name = "measure_time")
-	public String getCheckTime() {
-		return checkTime;
-	}
 
-	public void setCheckTime(String checkTime) {
-		this.checkTime = checkTime;
-	}
+  public long getUserid() {
+    return userid;
+  }
 
-	@Column(name = "userid")
-	public String getUserid() {
-		return userid;
-	}
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
-	@Column(name = "identify_card")
-	public String getIdCard() {
-		return idCard;
-	}
+  public void setUserid(long userid) {
+    this.userid = userid;
+  }
 
-	public void setIdCard(String idCard) {
-		this.idCard = idCard;
-	}
 
-	@Column(name = "name")
-	public String getNAME() {
-		return NAME;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setNAME(String nAME) {
-		NAME = nAME;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	@Column(name = "birth")
-	public String getBirth() {
-		return birth;
-	}
 
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
+  public String getBirth() {
+    return birth;
+  }
 
-	@Column(name = "sex")
-	public String getSex() {
-		return sex;
-	}
+  public void setBirth(String birth) {
+    this.birth = birth;
+  }
 
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
 
-	@Column(name = "systolicPressure")
-	public String getSystolicPressure() {
-		return systolicPressure;
-	}
+  public String getSex() {
+    return sex;
+  }
 
-	public void setSystolicPressure(String systolicPressure) {
-		this.systolicPressure = systolicPressure;
-	}
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
 
-	@Column(name = "diastolicPressure")
-	public String getDiastolicPressure() {
-		return diastolicPressure;
-	}
 
-	public void setDiastolicPressure(String diastolicPressure) {
-		this.diastolicPressure = diastolicPressure;
-	}
+  public String getMeasureTime() {
+    return measureTime;
+  }
 
-	@Column(name = "pluse")
-	public String getPluse() {
-		return pluse;
-	}
+  public void setMeasureTime(String measureTime) {
+    this.measureTime = measureTime;
+  }
 
-	public void setPluse(String pluse) {
-		this.pluse = pluse;
-	}
 
-	@Column(name = "deviceSn")
-	public String getDeviceId() {
-		return deviceId;
-	}
+  public String getIdentifyCard() {
+    return identifyCard;
+  }
 
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
-	}
+  public void setIdentifyCard(String identifyCard) {
+    this.identifyCard = identifyCard;
+  }
 
-	@Column(name = "is_average")
-	public String getIsAverage() {
-		return isAverage;
-	}
 
-	public void setIsAverage(String isAverage) {
-		this.isAverage = isAverage;
-	}
+  public String getCardNumber() {
+    return cardNumber;
+  }
 
-	@Column(name = "parent_id")
-	public String getIdentifierCode(){
-		return identifierCode;
-	}
+  public void setCardNumber(String cardNumber) {
+    this.cardNumber = cardNumber;
+  }
 
-	public void setidentifierCode(String identifierCode) {
-		this.identifierCode = identifierCode;
-	}
 
-	@Column(name = "hand")
-	public String getHand(){
-		return hand;
-	}
+  public Double getSystolicPressure() {
+    return systolic;
+  }
 
-	public void setHand(String hand) {
-		this.hand = hand;
-	}
+  public void setSystolicPressure(Double systolicPressure) {
+    this.systolic = systolicPressure;
+  }
 
-	@Column(name = "status")
-	public String getData_status() {
-		return data_status;
-	}
 
-	public void setData_status(String data_status) {
-		this.data_status = data_status;
-	}
+  public Double getDiastolicPressure() {
+    return diastolic;
+  }
 
-	@Column(name = "card_number")
-	public String getCardNumber() {
-		return cardNumber;
-	}
+  public void setDiastolicPressure(Double diastolicPressure) {
+    this.diastolic = diastolicPressure;
+  }
 
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
-	}
-	@Column(name = "deptid")
-	public String getDeptid() {
-		return deptid;
-	}
 
-	public void setDeptid(String deptid) {
-		this.deptid = deptid;
-	}
+  public Double getPluse() {
+    return pluse;
+  }
+
+  public void setPluse(Double pluse) {
+    this.pluse = pluse;
+  }
+
+
+  public Double getIsAverage() {
+    return isAverage;
+  }
+
+  public void setIsAverage(Double isAverage) {
+    this.isAverage = isAverage;
+  }
+
+
+  public String getEvaluation() {
+    return evaluation;
+  }
+
+  public void setEvaluation(String evaluation) {
+    this.evaluation = evaluation;
+  }
+
+
+  public String getHand() {
+    return hand;
+  }
+
+  public void setHand(String hand) {
+    this.hand = hand;
+  }
+
+
+  public String getDevicesn() {
+    return devicesn;
+  }
+
+  public void setDevicesn(String devicesn) {
+    this.devicesn = devicesn;
+  }
+
+
+  public String getParentId() {
+    return parentId;
+  }
+
+  public void setParentId(String parentId) {
+    this.parentId = parentId;
+  }
+
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+
+  public long getDeptid() {
+    return deptid;
+  }
+
+  public void setDeptid(long deptid) {
+    this.deptid = deptid;
+  }
+
 }

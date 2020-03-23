@@ -1,41 +1,41 @@
 package com.hesicare.common.jobs;
 
-import com.hesicare.common.utils.Constants;
-import com.hesicare.common.utils.HospitalEnum;
-import com.hesicare.common.utils.HttpClientUtil;
-import com.hesicare.common.utils.Patdata;
+import com.hesicare.common.utils.*;
 import com.hesicare.common.utils.wonders.InterfaceEnCode;
-import com.hesicare.health.dao.BloodGlucoseDAO;
-import com.hesicare.health.dao.PatientBmiViewDao;
+import com.hesicare.health.dao.BmiDao;
+import com.hesicare.health.entity.BloodGlucoseVo;
 import com.hesicare.health.entity.PatientBmiView;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.PropertyFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+@Service
 public class BmiJob {
     @Autowired
-    private PatientBmiViewDao patientBmiViewDao;
+    private BmiDao patientBmiViewDao;
     @Autowired
     private JobUtils jobUtils;
-    public void doBmiIt() {
-      /*  try{
-            List<PatientBmiView> bmiview =patientBmiViewDao.getBmiByState("0");
+    static  String path_begin="D:/Hesicare/java项目/logs/sg/";
+    static  String url="";
+    public void doBmiIt() throws IOException {
+        jobUtils.printlog(path_begin+Constants.convert(new Date(),Constants.format1)+".txt",Constants.convert(new Date(),Constants.format2)+" :身高体重定时器启动");
+         try{
+            List<PatientBmiView> bmiview =patientBmiViewDao.selectList(null);
             for (PatientBmiView patientBmiView : bmiview) {
-                jobUtils.printwrites("D:/Hesicare/java项目/logs/sg/"+patientBmiView.getDeptid()+"/"+new SimpleDateFormat("yyyy-MM-dd").format(new Date()) +".txt","job 身高定时器：" + Constants.convert(new Date(), Constants.format2));
-                HospitalEnum hospitalEnum=jobUtils.info(patientBmiView.getDeptid());
-                String comcode=hospitalEnum.getComcode();
-                String name=hospitalEnum.getName();
-                boolean result = requestSG(patientBmiView,comcode,name);
-                if (result) {
-                    patientBmiViewDao.updateBmiState(patientBmiView.getId(),(short) 1);
-                }
+                HospitalEnum hospitalEnum=jobUtils.info(String.valueOf(patientBmiView.getDeptid()));
+                boolean result = requestSG(patientBmiView,hospitalEnum.getComcode(),hospitalEnum.getName());
+                /*数据状态：1 发送成功， 2 在1 的基础上第二次发送成功   3   第一次发送失败  */
+                if (result){
+                    patientBmiViewDao.updatebyid(patientBmiView.getId(),(short) 1);
+                             }
                 else{
-                    patientBmiViewDao.updateBmiState(patientBmiView.getId(),(short) 3);
-                }
+                    patientBmiViewDao.updatebyid(patientBmiView.getId(),(short) 3);
+                    }
                 Thread.sleep(1000);
             }
         }
@@ -45,12 +45,11 @@ public class BmiJob {
 
     }
     public boolean requestSG(PatientBmiView patientBmiView, String comcode, String name) throws Exception {
-        String url = "http://173.18.2.19:9071/measure/api/patSignSubmit";
-        boolean requestXT = false;
+        boolean resultSg=false;
         Patdata patdata = new Patdata();
         IdcardInfoExtractor idcardInfo = new IdcardInfoExtractor(String.valueOf(patientBmiView.getIdcard()));
         patdata.setPersoncard(patientBmiView.getIdcard());
-        patdata.setMeasureTime(Constants.convert(Constants.convert(patientBmiView.getMearsuretime(), Constants.format2), Constants.format2));
+        patdata.setMeasureTime(Constants.convert(Constants.convert(patientBmiView.getMearsureTime(), Constants.format2), Constants.format2));
         patdata.setMeasureSourceId(String.valueOf("0002"));
         patdata.setMeasureLocation(String.valueOf(3));
         patdata.setMeasureOrgId(comcode);
@@ -59,9 +58,8 @@ public class BmiJob {
         patdata.setDeviceType(String.valueOf("HS-3001"));
         BloodGlucoseVo bloodGlucoseVo=new BloodGlucoseVo();
         BloodGlucoseVo bloodGlucoseVo2=new BloodGlucoseVo();
-        String resultBg = "";
         bloodGlucoseVo.setMeasureType("1003");
-        bloodGlucoseVo.setMeasureData(patientBmiView.getHeight());
+        bloodGlucoseVo.setMeasureData(patientBmiView.getHight());
         bloodGlucoseVo2.setMeasureType("1004");
         bloodGlucoseVo2.setMeasureData(patientBmiView.getWeight());
         List<BloodGlucoseVo> datalist = new ArrayList<BloodGlucoseVo>();
@@ -73,11 +71,12 @@ public class BmiJob {
         PropertyFilter filter = new PropertyFilter() {
             public boolean apply(Object object, String fieldName, Object fieldValue) {
                 return null == fieldValue;
-            }
-        };
+                                                                                     }
+                                                                                      };
         jsonConfig.setJsonPropertyFilter(filter);
         JSONObject json = JSONObject.fromObject(patdata, jsonConfig);
-        jobUtils.printwrites("D:/Hesicare/java项目/logs/sg/"+patientBmiView.getDeptid()+"/"+new SimpleDateFormat("yyyy-MM-dd").format(new Date()) +".txt",name+"-请求数据：" + json.toString());
+        jobUtils.printlog(path_begin+Constants.convert(new Date(),Constants.format1)+".txt",json.toString());
+        jobUtils.printlog(path_begin+patientBmiView.getDeptid()+"/"+new SimpleDateFormat("yyyy-MM-dd").format(new Date()) +".txt",name+"-请求数据：" + json.toString());
         String header = InterfaceEnCode.getInterfaceKey();
         map.put("param", InterfaceEnCode.encrypt(json.toString()));
         HttpClientUtil util = new HttpClientUtil();
@@ -85,11 +84,11 @@ public class BmiJob {
         JSONObject resultJson = JSONObject.fromObject(result);
         String code = resultJson.getString("code");
         if (code.equals("1")) {
-            requestXT = true;
+            resultSg = true;
+        } else{
+            jobUtils.printlog(path_begin+Constants.convert(new Date(),Constants.format1)+".txt", String.valueOf(resultJson));
+
         }
-        jobUtils.printwrites("D:/Hesicare/java项目/logs/sg/"+patientBmiView.getDeptid()+"/"+new SimpleDateFormat("yyyy-MM-dd").format(new Date()) +".txt",name+"-"+result);
-        return requestXT;
-    }
-}*/
+        return resultSg;
     }
 }

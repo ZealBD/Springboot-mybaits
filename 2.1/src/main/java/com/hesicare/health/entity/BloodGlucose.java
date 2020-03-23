@@ -1,104 +1,109 @@
 package com.hesicare.health.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+@TableName("patient_blood_glucose_view")
+public class BloodGlucose {
+
+  private long id;
+  private java.sql.Timestamp measureTime;
+  private String identifyCard;
+  private double meatureValue;
+  private String evaluation;
+  private String devicesn;
+  private String dataStatus;
+  private long deptid;
+  private String status;
+  private String cardNumber;
 
 
-@Entity
-//@Table(name = "data_blood_glucose_clinic")
-@Table(name = "patient_blood_glucose_view")
-public class BloodGlucose implements java.io.Serializable {
-	private static final long serialVersionUID = 1L;
-	private Long id;/**/
-	private Double value;/**/
-	private String status;/**/
-	private String measureTime;/**/
-	private String deviceSn;/**/
-	private Integer evaluation;//评测结果；0：正常；1：偏低；2：偏高/**/
-	//private Integer operateType;	//'操作类型1:增加 2:修改 3.删除',
-	//private Integer operateState; //'操作类型0：未操作 1：已操作',
-	private String idCard;/**/
-	private String data_status;
-	private String deptid;
-	@GenericGenerator(name = "generator", strategy = "identity")
-	@Id
-	@GeneratedValue(generator = "generator")
-	@Column(name = "id", unique = true, nullable = false)
-	public Long getId() {
-		return this.id;
-	}
+  public long getId() {
+    return id;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public void setId(long id) {
+    this.id = id;
+  }
 
-	@Column(name = "meature_value")
-	public Double getValue() {
-		return this.value;
-	}
 
-	public void setValue(Double value) {
-		this.value = value;
-	}
+  public java.sql.Timestamp getMeasureTime() {
+    return measureTime;
+  }
 
-	@Column(name = "status")
-	public String  getStatus() {
-		return this.status;
-	}
+  public void setMeasureTime(java.sql.Timestamp measureTime) {
+    this.measureTime = measureTime;
+  }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	@Column(name = "measure_time")
-	public String getMeasureTime() {
-		return measureTime;
-	}
-	public void setMeasureTime(String measureTime) {
-		this.measureTime = measureTime;
-	}
-	@Column(name = "devicesn")
-	public String getDeviceSn() {
-		return this.deviceSn;
-	}
 
-	public void setDeviceSn(String deviceSn) {
-		this.deviceSn = deviceSn;
-	}
-	@Column(name = "evaluation")
-	public Integer getEvaluation() {
-		return evaluation;
-	}
+  public String getIdentifyCard() {
+    return identifyCard;
+  }
 
-	public void setEvaluation(Integer evaluation) {
-		this.evaluation = evaluation;
-	}
-	@Column(name = "identify_card")
-	public String getIdCard() {
-		return idCard;
-	}
+  public void setIdentifyCard(String identifyCard) {
+    this.identifyCard = identifyCard;
+  }
 
-	public void setIdCard(String idCard) {
-		this.idCard = idCard;
-	}
-	@Column(name = "data_status")
-	public String getData_status() {
-		return data_status;
-	}
 
-	public void setData_status(String data_status) {
-		this.data_status = data_status;
-	}
+  public double getMeatureValue() {
+    return meatureValue;
+  }
 
-	@Column(name = "deptid")
-	public String getDeptid() {
-		return deptid;
-	}
+  public void setMeatureValue(double meatureValue) {
+    this.meatureValue = meatureValue;
+  }
 
-	public void setDeptid(String deptid) {
-		this.deptid = deptid;
-	}
+
+  public String getEvaluation() {
+    return evaluation;
+  }
+
+  public void setEvaluation(String evaluation) {
+    this.evaluation = evaluation;
+  }
+
+
+  public String getDevicesn() {
+    return devicesn;
+  }
+
+  public void setDevicesn(String devicesn) {
+    this.devicesn = devicesn;
+  }
+
+
+  public String getDataStatus() {
+    return dataStatus;
+  }
+
+  public void setDataStatus(String dataStatus) {
+    this.dataStatus = dataStatus;
+  }
+
+
+  public long getDeptid() {
+    return deptid;
+  }
+
+  public void setDeptid(long deptid) {
+    this.deptid = deptid;
+  }
+
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+
+  public String getCardNumber() {
+    return cardNumber;
+  }
+
+  public void setCardNumber(String cardNumber) {
+    this.cardNumber = cardNumber;
+  }
+
 }

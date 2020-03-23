@@ -1,4 +1,6 @@
 package com.hesicare.common.utils;
+
+import lombok.Data;
 public enum HospitalEnum {
     yp_yh("殷航社区","42508581200");
     /*cn_ts("天山","42505239100"),

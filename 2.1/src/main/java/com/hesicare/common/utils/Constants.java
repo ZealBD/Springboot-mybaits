@@ -1,6 +1,6 @@
 package com.hesicare.common.utils;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

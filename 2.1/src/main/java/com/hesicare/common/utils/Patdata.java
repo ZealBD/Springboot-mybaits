@@ -1,8 +1,8 @@
 package com.hesicare.common.utils;
 
 
-import com.hesicare.common.jobs.BloodGlucoseVo;
-import com.hesicare.common.jobs.BloodPressureVo;
+import com.hesicare.health.entity.BloodGlucoseVo;
+import com.hesicare.health.entity.BloodPressureVo;
 
 import java.util.List;
 
